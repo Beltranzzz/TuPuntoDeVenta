@@ -1,6 +1,6 @@
 import { addDaysKey, dateKey } from '../lib/dates';
 
-export type PeriodId = 'hoy' | 'semana' | 'mes' | 'rango' | 'todo';
+export type PeriodId = 'hoy' | 'semana' | 'mes' | 'mesAnterior' | 'rango' | 'todo';
 
 // from/to son fechas "YYYY-MM-DD" inclusivas; undefined = sin límite
 export interface Range { from?: string; to?: string; label: string; valid: boolean }
@@ -19,6 +19,11 @@ export function resolvePeriod(id: PeriodId, custom?: { from: string; to: string 
       const from = dateKey(new Date(now.getFullYear(), now.getMonth(), 1));
       const to = dateKey(new Date(now.getFullYear(), now.getMonth() + 1, 0));
       return { from, to, label: 'Este mes', valid: true };
+    }
+    case 'mesAnterior': {
+      const from = dateKey(new Date(now.getFullYear(), now.getMonth() - 1, 1));
+      const to = dateKey(new Date(now.getFullYear(), now.getMonth(), 0));
+      return { from, to, label: 'Mes anterior', valid: true };
     }
     case 'rango': {
       const f = custom?.from || undefined;

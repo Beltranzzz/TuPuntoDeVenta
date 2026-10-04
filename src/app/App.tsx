@@ -7,6 +7,7 @@ import { Dashboard } from '../features/dashboard/Dashboard';
 import { ExportPage } from '../features/export/ExportPage';
 import { History } from '../features/history/History';
 import { Products } from '../features/products/Products';
+import { ProfitReport } from '../features/reports/ProfitReport';
 import { EntryModal } from '../features/quick-entry/EntryModal';
 import { Reports } from '../features/reports/Reports';
 import { SettingsContext, useSettings, useSettingsState } from '../features/settings/SettingsContext';
@@ -44,6 +45,7 @@ function More() {
         <ul className="more-list">
           <li><a href="#/registro"><span>📋 Registro</span><span>›</span></a></li>
           <li><a href="#/productos"><span>🏷️ Productos</span><span>›</span></a></li>
+          <li><a href="#/utilidad"><span>📈 Utilidad por artículo</span><span>›</span></a></li>
           <li><a href="#/exportar"><span>📤 Exportar</span><span>›</span></a></li>
           <li><a href="#/configuracion"><span>🎨 Configuración</span><span>›</span></a></li>
           {isAdmin && <li><a href="#/admin"><span>🔐 Administración</span><span>›</span></a></li>}
@@ -64,7 +66,7 @@ function Shell() {
   const kind = hash === '#/registrar/venta' ? 'venta' : hash === '#/registrar/gasto' ? 'gasto' : null;
   const chooser = hash === '#/registrar';
   const section = kind || chooser ? '#/' : hash;
-  const active = chooser ? '#/registrar' : MORE_SECTIONS.includes(section) ? '#/mas' : section;
+  const active = chooser ? '#/registrar' : section === '#/utilidad' ? '#/reportes' : MORE_SECTIONS.includes(section) ? '#/mas' : section;
 
   // Aviso cuando faltan pocos días para que venza la suscripción
   const daysLeft = access.paidUntil && !access.isAdmin ? Math.ceil((access.paidUntil.getTime() - Date.now()) / 86400000) : null;
@@ -89,6 +91,7 @@ function Shell() {
         {section === '#/' ? <Dashboard onNew={(k) => go(`#/registrar/${k}`)} />
           : section === '#/calendario' ? <Calendar />
           : section === '#/reportes' ? <Reports />
+          : section === '#/utilidad' ? <ProfitReport />
           : section === '#/registro' ? <History />
           : section === '#/productos' ? <Products />
           : section === '#/exportar' ? <ExportPage />

@@ -7,6 +7,7 @@ import { money, toCents } from '../../lib/money';
 
 export function ProductModal({ product, onClose }: { product?: Product; onClose: () => void }) {
   const [name, setName] = useState(product?.name ?? '');
+  const [sku, setSku] = useState(product?.sku ?? '');
   const [category, setCategory] = useState(product?.category ?? PRODUCT_CATEGORIES[0]);
   const [price, setPrice] = useState(product ? String(product.price / 100) : '');
   const [cost, setCost] = useState(product ? String(product.cost / 100) : '');
@@ -28,7 +29,7 @@ export function ProductModal({ product, onClose }: { product?: Product; onClose:
     if (!valid) return;
     setError('');
     try {
-      const input = { name, category, price: p, cost: c, image, active };
+      const input = { name, sku, category, price: p, cost: c, image, active };
       if (product) await updateProduct(product.id, input);
       else await createProduct(input);
       onClose();
@@ -50,6 +51,11 @@ export function ProductModal({ product, onClose }: { product?: Product; onClose:
         <div className="field">
           <label>Nombre</label>
           <input autoFocus className="input" value={name} onChange={(e) => setName(e.target.value)} placeholder="Ej. Camisa negra" />
+        </div>
+
+        <div className="field">
+          <label>Código / SKU (opcional)</label>
+          <input className="input" value={sku} onChange={(e) => setSku(e.target.value)} placeholder="Ej. CAM-001" />
         </div>
 
         <div className="field">

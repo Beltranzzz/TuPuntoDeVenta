@@ -3,12 +3,12 @@ import { newId } from '../../lib/id';
 import { toCents } from '../../lib/money';
 
 // price y cost en pesos
-export interface ProductInput { name: string; category: string; price: number; cost: number; image?: string; active: boolean }
+export interface ProductInput { name: string; sku?: string; category: string; price: number; cost: number; image?: string; active: boolean }
 
 export function createProduct(i: ProductInput) {
   const now = new Date().toISOString();
   return productsRepo.add({
-    id: newId(), name: i.name.trim(), category: i.category,
+    id: newId(), name: i.name.trim(), sku: i.sku?.trim() || undefined, category: i.category,
     price: toCents(i.price), cost: toCents(i.cost), image: i.image, active: i.active,
     createdAt: now, updatedAt: now,
   });
@@ -16,7 +16,7 @@ export function createProduct(i: ProductInput) {
 
 export function updateProduct(id: string, i: ProductInput) {
   return productsRepo.update(id, {
-    name: i.name.trim(), category: i.category,
+    name: i.name.trim(), sku: i.sku?.trim() || undefined, category: i.category,
     price: toCents(i.price), cost: toCents(i.cost), image: i.image, active: i.active,
     updatedAt: new Date().toISOString(),
   });

@@ -35,7 +35,7 @@ export function Products() {
                 <div className="thumb">{p.image ? <img src={p.image} alt="" /> : '🏷️'}</div>
                 <div className="prod-body">
                   <b>{p.name}</b>{!p.active && <span className="tag">Inactivo</span>}
-                  <small className="meta">{p.category}</small>
+                  <small className="meta">{p.category}{p.sku ? ` · ${p.sku}` : ''}</small>
                   <small className="meta">Precio {money(p.price)} · Costo {money(p.cost)}</small>
                   <small className={`meta ${margin >= 0 ? 'pos' : 'neg'}`}>Utilidad estimada {money(margin)} ({pct}%)</small>
                   <div className="entry-actions">

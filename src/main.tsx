@@ -8,6 +8,7 @@ import './config/reports.css';
 import './config/products.css';
 import './config/settings.css';
 import './config/auth.css';
+import './config/profit.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import type { Entry } from '../../domain/entry';
 import { resolvePeriod, type PeriodId } from '../../domain/periods';
-import { productProfit } from '../../domain/productProfit';
 import { buildReport } from '../../domain/reports';
 import { loadEntries } from '../../domain/services/ledgerQuery';
 import { addDaysKey, addMonthsKey, dateKey, parseKey } from '../../lib/dates';
@@ -35,7 +34,6 @@ export function Reports() {
     [range.valid, range.from, range.to]
   );
   const report = range.valid && range.from && range.to ? buildReport(entries ?? [], range.from, range.to) : null;
-  const profits = productProfit(entries ?? []);
 
   const shift = (dir: 1 | -1) =>
     setAnchor((a) => (period === 'hoy' ? addDaysKey(a, dir) : period === 'semana' ? addDaysKey(a, 7 * dir) : addMonthsKey(a, dir)));
@@ -84,6 +82,14 @@ export function Reports() {
             <div className="card stat wide"><small>🎟️ Ticket promedio</small><b>{money(report.ticketPromedio)}</b></div>
           </section>
 
+          <a className="card link-card" href="#/utilidad" style={{ marginTop: 14 }}>
+            <span>
+              <b>📈 Utilidad por artículo</b>
+              <small className="meta">Tabla con el costo y la utilidad de cada producto</small>
+            </span>
+            <span>›</span>
+          </a>
+
           <div className="card" style={{ marginTop: 14 }}>
             <h2>{series === 'utilidad' ? 'Utilidad' : series === 'ventas' ? 'Ventas' : 'Gastos'} por {report.granularity === 'hora' ? 'hora' : report.granularity === 'mes' ? 'mes' : 'día'}</h2>
             <div className="chips">
@@ -99,25 +105,6 @@ export function Reports() {
             <p className="empty" style={{ marginBottom: 0 }}>Utilidad = ventas − gastos registrados (flujo de efectivo).</p>
           </div>
 
-          {profits.length > 0 && (
-            <div className="card" style={{ marginTop: 14 }}>
-              <h2>Utilidad estimada por producto</h2>
-              <p className="empty" style={{ marginTop: 0 }}>
-                Precio de venta − costo del producto. Es una estimación distinta de la utilidad de flujo de efectivo y no incluye otros gastos.
-              </p>
-              <ul className="ops">
-                {profits.map((pr) => (
-                  <li key={pr.productId}>
-                    <div>
-                      {pr.name}
-                      <small>{pr.units} {pr.units === 1 ? 'unidad' : 'unidades'} · ingresos {money(pr.ingresos)} · costo {money(pr.costo)}</small>
-                    </div>
-                    <b className={pr.utilidad >= 0 ? 'pos' : 'neg'}>{money(pr.utilidad)}</b>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
         </>
       )}
     </>

@@ -1,0 +1,29 @@
+.link-card { display: flex; justify-content: space-between; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+.link-card .meta { margin-top: 2px; }
+
+.tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); }
+.tbl { width: 100%; min-width: 780px; border-collapse: separate; border-spacing: 0; font-size: 14px; }
+.tbl th, .tbl td { padding: 12px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--line); }
+.tbl .left { text-align: left; }
+.tbl thead th { background: var(--primary); color: var(--on-primary); font-weight: 700; border-bottom: 0; }
+.tbl tfoot td { background: var(--primary); color: var(--on-primary); font-weight: 800; border-bottom: 0; }
+.tbl tbody tr:last-child td { border-bottom: 0; }
+.tbl td.name { white-space: normal; min-width: 150px; max-width: 220px; }
+.tbl .sticky { position: sticky; left: 0; z-index: 1; }
+.tbl tbody td.sticky { background: var(--card); box-shadow: 1px 0 0 var(--line); }
+.tbl thead th.sticky, .tbl tfoot td.sticky { background: var(--primary); }
+.tbl tbody tr.nocost td { color: var(--muted); }
+.th-btn { background: none; color: inherit; font: inherit; font-weight: 700; padding: 0; min-height: 32px; }
+
+.print-only { display: none; }
+@media print {
+  html { --bg: #fff !important; --card: #fff !important; --ink: #000 !important; --muted: #555 !important; --line: #ccc !important; --pos: #1E7A4D !important; --neg: #B02A2A !important; }
+  .nav, .no-print, .banner { display: none !important; }
+  .shell { display: block !important; }
+  .main { padding: 0 !important; max-width: none !important; }
+  .print-only { display: block; margin-bottom: 12px; }
+  .tbl-wrap { overflow: visible !important; border: 0 !important; }
+  .tbl { min-width: 0 !important; font-size: 11px; }
+  .tbl th, .tbl td { padding: 6px !important; position: static !important; box-shadow: none !important; }
+  .tbl thead th, .tbl tfoot td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

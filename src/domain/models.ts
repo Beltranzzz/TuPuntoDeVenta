@@ -32,6 +32,7 @@ export interface Product {
   category: string;
   price: number; // precio de venta (centavos)
   cost: number;  // costo (centavos)
+  sku?: string;  // código o SKU opcional
   image?: string; // foto reducida, en formato data URL
   active: boolean;
   deletedAt?: string;
