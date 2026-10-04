@@ -1,0 +1,12 @@
+.auth-wrap { min-height: 100dvh; display: grid; place-items: center; padding: 24px 16px; }
+.auth-card { width: 100%; max-width: 420px; }
+.auth-brand { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 18px; text-align: center; }
+.auth-brand h1 { font-size: 24px; }
+.auth-brand .brand-mark { width: 56px; height: 56px; font-size: 26px; border-radius: 16px; }
+.auth-links { display: flex; justify-content: space-between; gap: 8px; margin-top: 8px; }
+.link-btn { background: none; color: var(--primary); font-weight: 600; padding: 12px 4px; min-height: 44px; }
+.auth-note { text-align: center; color: var(--muted); font-size: 14px; margin-top: 14px; }
+.banner { background: var(--secondary-soft); color: var(--secondary-ink); border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; font-weight: 600; }
+.tag.ok { background: var(--pos-soft); color: var(--pos); }
+.tag.warn { background: var(--secondary-soft); color: var(--secondary-ink); }
+.tag.bad { background: var(--neg-soft); color: var(--neg); }
